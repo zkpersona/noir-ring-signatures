@@ -7,7 +7,7 @@ export type PublicKey = Point;
 
 const G = Grumpkin.generator;
 
-interface RingSignature {
+export interface RingSignature {
   c0: GrumpkinScalar;
   s: GrumpkinScalar[];
   publicKeys: PublicKey[];

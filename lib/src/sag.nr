@@ -16,11 +16,7 @@ pub fn verify<let MaxMessageLen: u32, let MaxRingSize: u32>(
     hashed_message: Field,
     ring: BoundedVec<Point, MaxRingSize>,
 ) -> bool {
-    let mut C: BoundedVec<Field, MaxRingSize> = BoundedVec::new();
-
-    for _ in 0..MaxRingSize {
-        C.push(0);
-    }
+    let mut C: BoundedVec<Field, MaxRingSize> = BoundedVec::from_array([0; MaxRingSize]);
 
     C.set(0, signature.c0);
 
