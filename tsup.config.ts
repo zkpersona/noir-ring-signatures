@@ -1,7 +1,6 @@
-import { defineConfig } from 'tsup';
+import { type Options, defineConfig } from 'tsup';
 
-export default defineConfig({
-  entry: ['src/index.ts'],
+const commonOpts: Options = {
   splitting: true,
   clean: true,
   format: ['esm'],
@@ -10,4 +9,16 @@ export default defineConfig({
   sourcemap: 'inline',
   target: 'esnext',
   shims: true,
-});
+};
+
+export default defineConfig([
+  {
+    entry: ['src/index.ts'],
+    ...commonOpts,
+  },
+  {
+    entry: ['src/sag/index.ts'],
+    outDir: 'dist/sag',
+    ...commonOpts,
+  },
+]);

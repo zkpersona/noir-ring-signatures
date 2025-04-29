@@ -1,43 +1,15 @@
 import { type Fr, Grumpkin, GrumpkinScalar, type Point } from '@aztec/aztec.js';
-import { pedersenHash } from '@aztec/foundation/crypto';
-import type { Fieldable } from '@aztec/foundation/serialize';
-
-export type PrivateKey = GrumpkinScalar;
-export type PublicKey = Point;
+import { hashToScalar, mod, randomScalar } from '../helpers';
+import type { RingSignature } from '../types';
 
 const G = Grumpkin.generator;
 
-export interface RingSignature {
-  c0: GrumpkinScalar;
-  s: GrumpkinScalar[];
-  publicKeys: PublicKey[];
-}
-
-const mod = (value: bigint, modulus = GrumpkinScalar.MODULUS): bigint => {
-  const result = value % modulus;
-  return result >= 0n ? result : result + modulus;
-};
-
-export const randomScalar = () => GrumpkinScalar.random();
-
-export const generateKeyPair = async () => {
-  const privateKey = GrumpkinScalar.random();
-  const Curve = new Grumpkin();
-  const publicKey = await Curve.mul(G, privateKey);
-  return { privateKey, publicKey };
-};
-
-async function hashToScalar(input: Fieldable[]): Promise<GrumpkinScalar> {
-  const hash = await pedersenHash(input);
-  return GrumpkinScalar.fromBuffer(hash.toBuffer());
-}
-
-export async function sign(
+export const sign = async (
   message: Fr,
-  publicKeys: PublicKey[],
-  privateKey: PrivateKey,
+  publicKeys: Point[],
+  privateKey: GrumpkinScalar,
   signerIndex: number
-): Promise<RingSignature> {
+): Promise<RingSignature> => {
   const Curve = new Grumpkin();
   const ringSize = publicKeys.length;
   const s: GrumpkinScalar[] = new Array(ringSize);
@@ -74,12 +46,12 @@ export async function sign(
     s,
     publicKeys,
   };
-}
+};
 
-export async function verify(
+export const verify = async (
   message: Fr,
   signature: RingSignature
-): Promise<boolean> {
+): Promise<boolean> => {
   const Curve = new Grumpkin();
   const { c0, s, publicKeys } = signature;
   const ringSize = publicKeys.length;
@@ -94,4 +66,6 @@ export async function verify(
   }
 
   return c0.equals(c[0]);
-}
+};
+
+export * from './helpers';

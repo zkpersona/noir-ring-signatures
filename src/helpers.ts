@@ -1,41 +1,27 @@
-import type { Fr } from '@aztec/aztec.js';
-import { Bool, BoundedVec, Field } from '@zkpersona/noir-helpers';
-import type { RingSignature } from './sag';
+import { Grumpkin, GrumpkinScalar } from '@aztec/aztec.js';
+import { pedersenHash } from '@aztec/foundation/crypto';
+import type { Fieldable } from '@aztec/foundation/serialize';
 
-export const sagToNoirInputs = (
-  signature: RingSignature,
-  messageFr: Fr,
-  maxRingSize: number
-) => {
-  const c0 = new Field(signature.c0.toBigInt());
-  const s = new BoundedVec(
-    maxRingSize,
-    new Field(0),
-    signature.s.map((x) => new Field(x.toBigInt()))
-  );
+export const mod = (
+  value: bigint,
+  modulus = GrumpkinScalar.MODULUS
+): bigint => {
+  const result = value % modulus;
+  return result >= 0n ? result : result + modulus;
+};
 
-  const _default = {
-    x: new Field(0),
-    y: new Field(0),
-    is_infinite: new Bool(false),
-  };
+export const randomScalar = () => GrumpkinScalar.random();
 
-  const ring = new BoundedVec(
-    maxRingSize,
-    _default,
-    signature.publicKeys.map((p) => ({
-      x: new Field(p.x.toBigInt()),
-      y: new Field(p.y.toBigInt()),
-      is_infinite: new Bool(false),
-    }))
-  );
+export const generateKeyPair = async () => {
+  const privateKey = GrumpkinScalar.random();
+  const Curve = new Grumpkin();
+  const publicKey = await Curve.mul(Grumpkin.generator, privateKey);
+  return { privateKey, publicKey };
+};
 
-  const sig = { c0, s };
-  const hashed_message = new Field(messageFr.toBigInt());
-
-  return {
-    signature: sig,
-    hashed_message,
-    ring,
-  };
+export const hashToScalar = async (
+  input: Fieldable[]
+): Promise<GrumpkinScalar> => {
+  const hash = await pedersenHash(input);
+  return GrumpkinScalar.fromBuffer(hash.toBuffer());
 };

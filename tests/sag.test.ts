@@ -7,7 +7,8 @@ import circuit from '../target/sag_example.json' assert { type: 'json' };
 import { type Fq, Fr, type Point } from '@aztec/aztec.js';
 import { pedersenHashBuffer } from '@aztec/foundation/crypto';
 import type { CompiledCircuit } from '@noir-lang/noir_js';
-import { generateKeyPair, sagToNoirInputs, sign } from '../src';
+import { generateKeyPair } from '../src';
+import { sagToNoirInputs, sign } from '../src/sag';
 
 describe('SAG Ring Signature Verification', () => {
   let prover: Prover;

@@ -1,18 +1,15 @@
 {
-  "name": "@zkpersona/noir-library-starter",
+  "name": "@zkpersona/noir-ring-signatures",
   "version": "0.1.0",
-  "description": "Template for building Noir libraries.",
+  "description": "Implementation of Ring Signatures in Noir",
   "keywords": [
     "noir",
     "noir-lang",
-    "noir-library",
-    "zkp",
     "zero-knowledge-proofs",
-    "zk",
     "aztec",
-    "ethereum",
     "cryptography",
-    "privacy"
+    "sag",
+    "grumpkin"
   ],
   "license": "MIT",
   "author": {
@@ -24,6 +21,10 @@
     ".": {
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs"
+    },
+    "./sag": {
+      "types": "./dist/sag/index.d.mts",
+      "import": "./dist/sag/index.mjs"
     }
   },
   "module": "./dist/index.mjs",
