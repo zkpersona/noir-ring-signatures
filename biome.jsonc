@@ -4,6 +4,13 @@
   "files": {
     "ignore": ["**/__generated__/**"]
   },
+  "linter": {
+    "rules": {
+      "style": {
+        "noNonNullAssertion": "off"
+      }
+    }
+  },
   "overrides": [
     {
       // Needed for Config default export

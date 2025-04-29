@@ -43,20 +43,22 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@changesets/cli": "^2.28.1",
+    "@changesets/cli": "^2.29.2",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "@noir-lang/noir_codegen": "^1.0.0-beta.3",
-    "@types/node": "^22",
-    "dotenv": "^16.4.7",
+    "@noir-lang/noir_codegen": "1.0.0-beta.3",
+    "@types/node": "^22.15.3",
+    "dotenv": "^16.5.0",
     "klarity": "^0.0.3",
-    "lefthook": "^1.11.8",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.3",
-    "vitest": "^3.0.4"
+    "lefthook": "^1.11.12",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
   },
   "dependencies": {
-    "@noir-lang/noir_js": "^1.0.0-beta.3",
-    "@zkpersona/noir-helpers": "^0.1.0"
+    "@aztec/aztec.js": "^0.86.0",
+    "@aztec/foundation": "^0.86.0",
+    "@noir-lang/noir_js": "1.0.0-beta.3",
+    "@zkpersona/noir-helpers": "^0.2.1"
   }
 }
