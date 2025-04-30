@@ -1,6 +1,6 @@
 {
   "name": "@zkpersona/noir-ring-signatures",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Implementation of Ring Signatures in Noir",
   "keywords": [
     "noir",
