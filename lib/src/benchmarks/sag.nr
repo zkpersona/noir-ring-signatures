@@ -1,8 +1,8 @@
-use super::sag::{Signature, verify};
+use crate::sag::{Signature, verify};
 use std::embedded_curve_ops::EmbeddedCurvePoint as Point;
 
 #[export]
-fn bench_small_ring(
+fn bench_small_ring_sag(
     signature: Signature<8>,
     hashed_message: Field,
     ring: BoundedVec<Point, 8>,
@@ -11,7 +11,7 @@ fn bench_small_ring(
 }
 
 #[export]
-fn bench_medium_ring(
+fn bench_medium_ring_sag(
     signature: Signature<32>,
     hashed_message: Field,
     ring: BoundedVec<Point, 32>,
@@ -20,7 +20,7 @@ fn bench_medium_ring(
 }
 
 #[export]
-fn bench_large_ring(
+fn bench_large_ring_sag(
     signature: Signature<128>,
     hashed_message: Field,
     ring: BoundedVec<Point, 128>,

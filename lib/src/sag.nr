@@ -1,17 +1,16 @@
-use std::{
-    embedded_curve_ops::{
-        embedded_curve_add, EmbeddedCurvePoint, EmbeddedCurvePoint as Point,
-        EmbeddedCurveScalar as Scalar, fixed_base_scalar_mul, multi_scalar_mul,
-    },
-    hash::pedersen_hash,
+use std::embedded_curve_ops::{
+    embedded_curve_add, EmbeddedCurvePoint, EmbeddedCurvePoint as Point,
+    EmbeddedCurveScalar as Scalar, fixed_base_scalar_mul, multi_scalar_mul,
 };
+
+use std::hash::pedersen_hash;
 
 pub struct Signature<let MaxRingSize: u32> {
     c0: Field,
     s: BoundedVec<Field, MaxRingSize>,
 }
 
-pub fn verify<let MaxMessageLen: u32, let MaxRingSize: u32>(
+pub fn verify<let MaxRingSize: u32>(
     signature: Signature<MaxRingSize>,
     hashed_message: Field,
     ring: BoundedVec<Point, MaxRingSize>,
