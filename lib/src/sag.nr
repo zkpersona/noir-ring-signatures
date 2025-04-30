@@ -5,7 +5,6 @@
 //! without revealing which member actually created the signature. This provides
 //! anonymity for the signer while still proving that the signature came from a member
 //! of the specified group.
-//!
 
 use std::embedded_curve_ops::{
     embedded_curve_add, EmbeddedCurvePoint, EmbeddedCurvePoint as Point,

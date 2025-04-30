@@ -1,6 +1,6 @@
 {
   "name": "@zkpersona/noir-ring-signatures",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Implementation of Ring Signatures in Noir",
   "keywords": [
     "noir",
@@ -47,7 +47,6 @@
     "@changesets/cli": "^2.29.2",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "@noir-lang/noir_codegen": "1.0.0-beta.3",
     "@types/node": "^22.15.3",
     "dotenv": "^16.5.0",
     "klarity": "^0.0.3",
@@ -59,7 +58,6 @@
   "dependencies": {
     "@aztec/aztec.js": "^0.86.0",
     "@aztec/foundation": "^0.86.0",
-    "@noir-lang/noir_js": "1.0.0-beta.3",
     "@zkpersona/noir-helpers": "^0.2.1"
   }
 }
