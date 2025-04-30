@@ -1,6 +1,6 @@
 # Noir Ring Signatures
 
-This library provides implementations of Ring Signatures schemes uin Noir. Ring Signatures are a type of cryptographic signature scheme that allow a member of a group to sign a message on behalf of the group without revealing which member actually created the signature. This provides anonymity for the signer while still proving that the signature came from a member of the specified group.
+This library provides implementations of Ring Signatures schemes in Noir. Ring Signatures are a type of cryptographic signature scheme that allow a member of a group to sign a message on behalf of the group without revealing which member actually created the signature. This provides anonymity for the signer while still proving that the signature came from a member of the specified group.
 
 Currently, the library supports the following Ring Signature schemes:
 
