@@ -7,11 +7,17 @@
 //! of the specified group.
 
 use std::embedded_curve_ops::{
-    embedded_curve_add, EmbeddedCurvePoint, EmbeddedCurvePoint as Point,
-    EmbeddedCurveScalar as Scalar, fixed_base_scalar_mul, multi_scalar_mul,
+    EmbeddedCurvePoint, EmbeddedCurvePoint as Point, EmbeddedCurveScalar as Scalar,
+    multi_scalar_mul,
 };
 
 use std::hash::pedersen_hash;
+
+pub global G: EmbeddedCurvePoint = EmbeddedCurvePoint {
+    x: 0x01,
+    y: 0x02cf135e7506a45d632d270d45f1181294833fc48d823f272c,
+    is_infinite: false,
+};
 
 /// Represents a SAG ring signature
 ///
@@ -57,16 +63,11 @@ pub fn verify<let MaxRingSize: u32>(
             // Get the current public key
             let K = ring.get(i);
 
-            // Convert response s_i to scalar and compute s_iG
             let s: Scalar = Scalar::from_field(signature.s.get(i));
-            let sG = fixed_base_scalar_mul(s);
-
-            // Convert challenge c_i to scalar and compute c_iK_i
             let c: Scalar = Scalar::from_field(C.get(i));
-            let cK = multi_scalar_mul([K], [c]);
 
-            // Add s_iG and c_iK_i
-            let sG_cK = embedded_curve_add(sG, cK);
+            // Compute s.G + c.K
+            let sG_cK = multi_scalar_mul([G, K], [s, c]);
 
             // Hash the result with the message to get next challenge
             let hash = pedersen_hash([sG_cK.x, sG_cK.y, hashed_message]);
